@@ -1,0 +1,38 @@
+## Importar Imagem
+
+img = cv2.imread("Resources/teste.png")
+
+cv2.imshow("Henriqueira", img)
+cv2.waitKey(0)
+
+imgGray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY) # Transforma a imagem para cinza
+cv2.imshow("Gray Image", imgGray)
+kernel = np.ones((5,5), np.uint8)
+
+imgGray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
+imgBlur = cv2.GaussianBlur(imgGray, (7,7), 0)
+imgCanny = cv2.Canny(img, 100, 100)
+imgDialation = cv2.dilate(imgCanny, kernel, iterations=2)
+imgEroded = cv2.erode(imgDialation, kernel, iterations=1)
+
+cv2.imshow("Gray Image", imgGray)
+cv2.imshow("Blur Image", imgBlur)
+cv2.imshow("Canny Image", imgCanny)
+cv2.imshow("Dialation Image", imgDialation)
+cv2.imshow("Erode Image", imgEroded)
+
+
+
+## Importar video
+
+cap = cv2.VideoCapture(0)
+cap.set(3, 640) ##define a altura com id 3
+cap.set(4, 480) ##define a largura com id 4
+cap.set(10,100) #define o brilho com id 10
+
+while True:
+    sucess, img = cap.read()
+    cv2.imshow("Euzinho", img)
+    if cv2.waitKey(1) & 0XFF ==ord('q'):
+        break
+
